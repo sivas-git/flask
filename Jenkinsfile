@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Deploy Application') {
             steps {
-                sh 'docker run -d -p 5000:5000 flask:${env.BUILD_NUMBER}'
+                sh 'docker run -d -p 5000:5000 ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}'
             }
         }
     }
