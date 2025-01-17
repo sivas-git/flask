@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub-credentials') {
-                        docker.image("flask:${env.BUILD_NUMBER}").push()
+                        docker.image("flask:${IMAGE_TAG}").push()
                     }
                 }
             }
