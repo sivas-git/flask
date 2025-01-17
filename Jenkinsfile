@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = 'Dockerhub-credentials'  // The Jenkins credentials ID for Docker Hub
         DOCKER_IMAGE_NAME = 'siva3r/flask'           // Replace with your Docker Hub username and repo name
         IMAGE_TAG = "${env.BUILD_NUMBER}"                   // Use the Jenkins build number as the image tag
-        
+    }    
     stages {
         stage('Clone Repository') {
             steps {
