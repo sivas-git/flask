@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'Dockerhub-credentials'  // The Jenkins credentials ID for Docker Hub
+        DOCKER_IMAGE_NAME = 'siva3r/flask'           // Replace with your Docker Hub username and repo name
+        IMAGE_TAG = "${env.BUILD_NUMBER}"                   // Use the Jenkins build number as the image tag
+        
     stages {
         stage('Clone Repository') {
             steps {
@@ -10,15 +15,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("flask:${env.BUILD_NUMBER}")
+                    docker.build("${DOCKER_IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub-credentials') {
-                        docker.image("flask:${IMAGE_TAG}").push()
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
+                        docker.image("${DOCKER_IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
             }
